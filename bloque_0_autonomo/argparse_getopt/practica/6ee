@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+"""
+Descripción breve de qué hace el script.
+"""
+import argparse
+import sys
+
+
+def crear_parser():
+    """Configura el parser de argumentos."""
+    parser = argparse.ArgumentParser(
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+
+    parser.add_argument("archivo", help="Archivo a procesar")
+    parser.add_argument("-v", "--verbose", action="store_true")
+    parser.add_argument("-o", "--output", default="salida.txt")
+
+    return parser
+
+
+def procesar(args):
+    """Lógica principal del programa."""
+    if args.verbose:
+        print(f"Procesando {args.archivo}...")
+
+    # Tu código acá
+
+    return True  # éxito
+
+
+def main():
+    parser = crear_parser()
+    args = parser.parse_args()
+
+    try:
+        exito = procesar(args)
+        sys.exit(0 if exito else 1)
+    except KeyboardInterrupt:
+        print("\nInterrumpido", file=sys.stderr)
+        sys.exit(130)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
